@@ -26,19 +26,20 @@ void testApp::setupArduino(const int & version) {
   ofRemoveListener(arduino.EInitialized, this, &testApp::setupArduino);
   
   arduino.sendDigitalPinMode(2, ARD_OUTPUT);
-   arduino.sendDigitalPinMode(3, ARD_OUTPUT);
-   arduino.sendDigitalPinMode(4, ARD_OUTPUT);  
+  arduino.sendDigitalPinMode(3, ARD_OUTPUT);
+  arduino.sendDigitalPinMode(4, ARD_OUTPUT);
   
   bArduinoReady = true;
-  if(bArduinoReady) {
-    video.play();
-  }
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
   arduino.update();
   video.update();
+    
+  if(video.isLoaded() && bArduinoReady) {
+    video.play();
+  }
     
   if(video.isLoaded()){
     duration = video.getDuration();
